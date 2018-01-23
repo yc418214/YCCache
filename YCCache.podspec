@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/yc418214/YCCache"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
-  s.source       = { :git => "git@github.com:yc418214/YCCache.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/yc418214/YCCache.git", :tag => "#{s.version}" }
 
   s.ios.deployment_target = '8.0'
   s.requires_arc = true
