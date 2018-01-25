@@ -127,10 +127,11 @@ static NSUInteger const kDataBaseOpenMaxRetryCount = 6;
         YCLog(@"sqlite open failed");
         return NO;
     }
+    CFDictionaryValueCallBacks valueCallbacks = { 0 };
     stmtCache  = CFDictionaryCreateMutable(CFAllocatorGetDefault(),
                                            0,
                                            &kCFTypeDictionaryKeyCallBacks,
-                                           &kCFTypeDictionaryValueCallBacks);
+                                           &valueCallbacks);
     dataBaseOpenFailedCount = 0;
     return YES;
 }
@@ -219,6 +220,7 @@ static NSUInteger const kDataBaseOpenMaxRetryCount = 6;
     int result = sqlite3_prepare_v2(dataBase, sqlString.UTF8String, -1, &stmt, NULL);
     if (result != SQLITE_OK) {
         YCLog(@"sqlite prepare stmt for sql : %@ error : %s", sqlString, sqlite3_errmsg(dataBase));
+        return NULL;
     }
     CFDictionarySetValue(stmtCache, key, stmt);
     return stmt;
