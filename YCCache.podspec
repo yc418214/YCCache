@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.name         = "YCCache"
   s.version      = "0.0.2"
   s.summary      = "A cache library for iOS."
-  s.author             = { "Yuchuan" => "418214922@qq.com" }
+  s.author       = { "Yuchuan" => "418214922@qq.com" }
   s.homepage     = "https://github.com/yc418214/YCCache"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
 
