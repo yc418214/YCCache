@@ -18,6 +18,8 @@
 //category
 #import "NSObject+YCAddition.h"
 
+static NSUInteger const kBackgroundDefaultLiveTime = 30;
+
 typedef void(^YCCacheCancelBlock)(BOOL cancel);
 
 static YCCacheCancelBlock YCCacheCancelBlockWithHandler (dispatch_block_t handler) {
@@ -63,6 +65,7 @@ static YCCacheCancelBlock YCCacheCancelBlockWithHandler (dispatch_block_t handle
     self = [super init];
     if (self) {
         _memoryCostLimit = [YCMemoryCache properMemoryCostLimit];
+        _backgroundLiveTime = kBackgroundDefaultLiveTime;
         [self configNotification];
     }
     return self;
@@ -166,7 +169,7 @@ static YCCacheCancelBlock YCCacheCancelBlockWithHandler (dispatch_block_t handle
         [weakSelf.memoryLinkList removeAllLinkNodes];
     };
     self.cancelReleasingMemoryBlock = YCCacheCancelBlockWithHandler(handler);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(15 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.backgroundLiveTime * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         YCCacheCancelBlock cancelBlock = self.cancelReleasingMemoryBlock;
         if (!cancelBlock) {
             return;

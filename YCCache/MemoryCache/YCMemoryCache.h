@@ -12,6 +12,8 @@
 
 @property (assign, nonatomic) NSUInteger memoryCostLimit;
 
+@property (assign, nonatomic) NSUInteger backgroundLiveTime;
+
 + (instancetype)sharedCache;
 
 - (void)storeObject:(id)object forKey:(NSString *)key;
